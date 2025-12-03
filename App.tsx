@@ -4,13 +4,15 @@ import { OperationsRequests } from './components/OperationsRequests';
 import { ActiveTrips } from './components/ActiveTrips';
 import { TerminalRegistry } from './components/TerminalRegistry';
 import { LiveMap } from './components/LiveMap';
+import { Login } from './components/Login';
 import { INITIAL_DATA } from './constants';
-import { LogisticsData, TripStatus } from './types';
+import { LogisticsData, TripStatus, User } from './types';
 import { fetchTerminalsFromSheet, GOOGLE_SCRIPT_URL } from './services/backend';
 import { analyzeOperations } from './services/geminiService';
 import { Sparkles, TrendingUp, Truck, ClipboardList, Users, CheckCircle, Clock, Activity, AlertTriangle, BarChart3 } from 'lucide-react';
 
 const App: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
   const [activePage, setActivePage] = useState('dashboard');
   const [data, setData] = useState<LogisticsData>(INITIAL_DATA);
   const [aiInsight, setAiInsight] = useState<string | null>(null);
@@ -19,6 +21,8 @@ const App: React.FC = () => {
 
   // Load Terminals from Spreadsheet on Startup
   useEffect(() => {
+    if (!user) return; // Only load data if logged in
+
     const loadTerminals = async () => {
       const terminals = await fetchTerminalsFromSheet();
       setData(prev => ({
@@ -28,10 +32,12 @@ const App: React.FC = () => {
       if (GOOGLE_SCRIPT_URL) setIsSheetConnected(true);
     };
     loadTerminals();
-  }, []);
+  }, [user]);
 
   // Simulating Real-time updates
   useEffect(() => {
+    if (!user) return;
+
     const interval = setInterval(() => {
       setData(currentData => {
         const updatedDrivers = currentData.drivers.map(d => ({
@@ -45,7 +51,7 @@ const App: React.FC = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [user]);
 
   const handleAiAnalysis = async () => {
     setIsLoadingAi(true);
@@ -53,6 +59,11 @@ const App: React.FC = () => {
     const insight = await analyzeOperations(data);
     setAiInsight(insight);
     setIsLoadingAi(false);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setData(INITIAL_DATA); // Reseta os dados para o estado inicial
   };
 
   const getRecentActivity = () => {
@@ -88,7 +99,7 @@ const App: React.FC = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">Visão Geral da Operação</h2>
-                <p className="text-gray-500">Acompanhamento estratégico DRB Logística.</p>
+                <p className="text-gray-500">Olá, {user?.name}. Acompanhamento estratégico DRB Logística.</p>
               </div>
               
               {!isSheetConnected ? (
@@ -305,9 +316,14 @@ const App: React.FC = () => {
     }
   };
 
+  // Login Flow
+  if (!user) {
+    return <Login onLoginSuccess={setUser} />;
+  }
+
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <Sidebar activePage={activePage} onNavigate={setActivePage} />
+      <Sidebar activePage={activePage} onNavigate={setActivePage} user={user} onLogout={handleLogout} />
       <main className="flex-1 ml-64 overflow-y-auto h-screen custom-scrollbar">
         {renderContent()}
       </main>

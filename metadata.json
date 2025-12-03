@@ -1,5 +1,5 @@
 {
-  "name": "DRB Logistica operação",
+  "name": "DRB Logistica - Operação",
   "description": "A comprehensive logistics management system integrating operations, real-time driver tracking, and spreadsheet automation with AI insights.",
   "requestFramePermissions": [
     "geolocation"
