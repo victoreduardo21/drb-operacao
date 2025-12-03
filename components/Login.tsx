@@ -29,30 +29,27 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="flex min-h-screen bg-white">
-      {/* Left Column (Dark Branding) - Cor #020617 */}
-      <div className="hidden lg:flex w-1/2 bg-[#020617] text-white flex-col justify-between p-12 relative overflow-hidden">
+    <div className="flex min-h-screen">
+      
+      {/* Left Column (Branding) - AGORA ESCURO (#020617) */}
+      <div className="hidden lg:flex w-1/2 bg-[#020617] text-white flex-col justify-between p-12 relative overflow-hidden border-r border-slate-800">
         
-        {/* Abstract Background Effect - Configuração de Luzes Solicitada */}
-        {/* Base: blue-900 com 30% opacidade */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        
-        {/* Brilho Central: blue-600 com 20% opacidade e mix-blend-screen */}
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/20 mix-blend-screen rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
+        {/* Abstract Background Effect - (Visível apenas no lado escuro) */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 mix-blend-screen rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
 
         {/* Logo Area */}
         <div className="relative z-10 flex items-center gap-3">
           <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
             <Truck className="text-white" size={24} />
           </div>
-          <span className="font-bold text-2xl tracking-tight">DRB Logística</span>
+          <span className="font-bold text-2xl tracking-tight text-white">DRB Logística</span>
         </div>
 
         {/* Main Text */}
         <div className="relative z-10 mb-12">
-          <h1 className="text-5xl font-bold leading-tight mb-6">
+          <h1 className="text-5xl font-bold leading-tight mb-6 text-white">
             Sistema Operacional <br />
-            {/* Gradiente solicitado: blue-400 para indigo-400 */}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Inteligente</span>
           </h1>
           <p className="text-slate-400 text-xl leading-relaxed max-w-lg">
@@ -62,16 +59,25 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 text-sm text-slate-600">
+        <div className="relative z-10 text-sm text-slate-500">
           © 2025 Global Tech Software. Todos os direitos reservados.
         </div>
       </div>
 
-      {/* Right Column (Form) */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-slate-50/30">
-        <div className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Right Column (Form) - AGORA CLARO (bg-white) */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white relative overflow-hidden text-slate-900">
+        
+        <div className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-4 duration-700 relative z-10">
           
-          <div className="mb-10">
+          {/* Mobile Logo (Visible only on lg:hidden) - Cor ajustada para fundo claro */}
+          <div className="lg:hidden flex items-center gap-3 mb-10 justify-center">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <Truck className="text-white" size={20} />
+            </div>
+            <span className="font-bold text-xl tracking-tight text-slate-900">DRB Logística</span>
+          </div>
+
+          <div className="mb-10 text-center lg:text-left">
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Bem-vindo</h2>
             <p className="text-slate-500">Insira suas credenciais para acessar o painel operacional.</p>
           </div>
@@ -88,7 +94,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm hover:bg-slate-100 focus:bg-white"
                   placeholder="nome@drblogistica.com"
                   required
                 />
@@ -105,7 +111,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-sm"
+                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm hover:bg-slate-100 focus:bg-white"
                   placeholder="••••••••"
                   required
                 />
@@ -141,7 +147,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-500/30 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-600/20 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5"
             >
               {isLoading ? (
                 <>

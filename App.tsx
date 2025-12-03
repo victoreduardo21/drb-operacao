@@ -9,7 +9,7 @@ import { INITIAL_DATA } from './constants';
 import { LogisticsData, TripStatus, User } from './types';
 import { fetchTerminalsFromSheet, GOOGLE_SCRIPT_URL } from './services/backend';
 import { analyzeOperations } from './services/geminiService';
-import { Sparkles, TrendingUp, Truck, ClipboardList, Users, CheckCircle, Clock, Activity, AlertTriangle, BarChart3 } from 'lucide-react';
+import { Sparkles, TrendingUp, Truck, ClipboardList, Users, CheckCircle, Clock, Activity, AlertTriangle, BarChart3, Menu } from 'lucide-react';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -18,6 +18,9 @@ const App: React.FC = () => {
   const [aiInsight, setAiInsight] = useState<string | null>(null);
   const [isLoadingAi, setIsLoadingAi] = useState(false);
   const [isSheetConnected, setIsSheetConnected] = useState(false);
+  
+  // Mobile Sidebar State
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Load Terminals from Spreadsheet on Startup
   useEffect(() => {
@@ -94,12 +97,12 @@ const App: React.FC = () => {
         const pctCompleted = totalTrips ? (completedTripsCount / totalTrips) * 100 : 0;
 
         return (
-          <div className="p-8 space-y-8">
+          <div className="p-4 md:p-8 space-y-6 md:space-y-8">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-bold text-gray-800">Visão Geral da Operação</h2>
-                <p className="text-gray-500">Olá, {user?.name}. Acompanhamento estratégico DRB Logística.</p>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-800">Visão Geral da Operação</h2>
+                <p className="text-sm md:text-base text-gray-500">Olá, {user?.name}. Acompanhamento estratégico.</p>
               </div>
               
               {!isSheetConnected ? (
@@ -153,7 +156,7 @@ const App: React.FC = () => {
                                 </p>
                             </div>
                         ) : (
-                            <div className="h-full flex items-center justify-center text-indigo-300/50 text-sm italic border border-dashed border-indigo-700/50 rounded-xl">
+                            <div className="h-full flex items-center justify-center text-indigo-300/50 text-sm italic border border-dashed border-indigo-700/50 rounded-xl py-6 md:py-0">
                                 Aguardando solicitação de análise...
                             </div>
                         )}
@@ -162,7 +165,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Visual Status Bar */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hidden md:block">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="font-bold text-gray-800 flex items-center gap-2">
                         <BarChart3 size={20} className="text-blue-600" /> Distribuição de Viagens
@@ -195,61 +198,61 @@ const App: React.FC = () => {
             </div>
 
             {/* KPI Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start">
                     <div>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Viagens Ativas</p>
-                        <h3 className="text-2xl font-bold text-gray-800 mt-1">{activeTripsCount}</h3>
+                        <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">Viagens Ativas</p>
+                        <h3 className="text-xl md:text-2xl font-bold text-gray-800 mt-1">{activeTripsCount}</h3>
                     </div>
-                    <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                        <Truck size={20} />
+                    <div className="p-1.5 md:p-2 bg-blue-50 text-blue-600 rounded-lg">
+                        <Truck size={16} className="md:w-5 md:h-5" />
                     </div>
                 </div>
                 <div className="mt-3 text-xs text-green-600 flex items-center gap-1 font-medium bg-green-50 w-fit px-2 py-0.5 rounded">
-                   <TrendingUp size={12} /> Operação Normal
+                   <TrendingUp size={12} /> Normal
                 </div>
               </div>
 
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start">
                     <div>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Pendentes</p>
-                        <h3 className="text-2xl font-bold text-gray-800 mt-1">{pendingTripsCount}</h3>
+                        <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">Pendentes</p>
+                        <h3 className="text-xl md:text-2xl font-bold text-gray-800 mt-1">{pendingTripsCount}</h3>
                     </div>
-                    <div className="p-2 bg-orange-50 text-orange-600 rounded-lg">
-                        <ClipboardList size={20} />
+                    <div className="p-1.5 md:p-2 bg-orange-50 text-orange-600 rounded-lg">
+                        <ClipboardList size={16} className="md:w-5 md:h-5" />
                     </div>
                 </div>
                  <div className={`mt-3 text-xs flex items-center gap-1 font-medium w-fit px-2 py-0.5 rounded ${pendingTripsCount > 0 ? 'text-orange-600 bg-orange-50' : 'text-gray-400 bg-gray-100'}`}>
-                   {pendingTripsCount > 0 ? 'Aguardando Despacho' : 'Tudo em dia'}
+                   {pendingTripsCount > 0 ? 'Aguardando' : 'Em dia'}
                 </div>
               </div>
 
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start">
                     <div>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Frota Livre</p>
-                        <h3 className="text-2xl font-bold text-gray-800 mt-1">{freeDriversCount}</h3>
+                        <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">Frota Livre</p>
+                        <h3 className="text-xl md:text-2xl font-bold text-gray-800 mt-1">{freeDriversCount}</h3>
                     </div>
-                    <div className="p-2 bg-green-50 text-green-600 rounded-lg">
-                        <Users size={20} />
+                    <div className="p-1.5 md:p-2 bg-green-50 text-green-600 rounded-lg">
+                        <Users size={16} className="md:w-5 md:h-5" />
                     </div>
                 </div>
                 <div className="w-full bg-gray-100 rounded-full h-1 mt-4">
                     <div className="bg-green-500 h-1 rounded-full transition-all duration-500" style={{ width: `${(freeDriversCount / totalDrivers) * 100}%` }}></div>
                 </div>
-                <p className="text-[10px] text-gray-400 mt-1 text-right">{freeDriversCount} de {totalDrivers} motoristas</p>
+                <p className="text-[10px] text-gray-400 mt-1 text-right">{freeDriversCount}/{totalDrivers}</p>
               </div>
 
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start">
                     <div>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Entregas Hoje</p>
-                        <h3 className="text-2xl font-bold text-gray-800 mt-1">{completedTripsCount}</h3>
+                        <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">Entregas</p>
+                        <h3 className="text-xl md:text-2xl font-bold text-gray-800 mt-1">{completedTripsCount}</h3>
                     </div>
-                    <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
-                        <CheckCircle size={20} />
+                    <div className="p-1.5 md:p-2 bg-purple-50 text-purple-600 rounded-lg">
+                        <CheckCircle size={16} className="md:w-5 md:h-5" />
                     </div>
                 </div>
                 <div className="mt-3 text-xs text-purple-600 flex items-center gap-1 font-medium bg-purple-50 w-fit px-2 py-0.5 rounded">
@@ -283,7 +286,7 @@ const App: React.FC = () => {
                             {new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
+                        <div className="flex items-center gap-2 mt-1 flex-wrap">
                              <span className="text-xs font-medium text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">
                                  {event.driverName}
                              </span>
@@ -308,7 +311,7 @@ const App: React.FC = () => {
       case 'trips':
         return <ActiveTrips data={data} />;
       case 'map':
-        return <div className="h-screen p-4"><div className="h-full bg-white rounded-xl shadow border border-gray-200"><LiveMap data={data} /></div></div>;
+        return <div className="h-[calc(100vh-80px)] lg:h-screen p-0 lg:p-4"><div className="h-full bg-white lg:rounded-xl lg:shadow lg:border lg:border-gray-200"><LiveMap data={data} /></div></div>;
       case 'terminals':
         return <TerminalRegistry data={data} onUpdate={setData} />;
       default:
@@ -323,10 +326,37 @@ const App: React.FC = () => {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <Sidebar activePage={activePage} onNavigate={setActivePage} user={user} onLogout={handleLogout} />
-      <main className="flex-1 ml-64 overflow-y-auto h-screen custom-scrollbar">
-        {renderContent()}
-      </main>
+      
+      {/* Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#020617] text-white z-40 flex items-center justify-between px-4 shadow-md">
+         <div className="flex items-center gap-3">
+             <button onClick={() => setIsSidebarOpen(true)} className="p-1 hover:bg-white/10 rounded-lg">
+               <Menu size={24} />
+             </button>
+             <span className="font-bold text-lg tracking-tight">DRB Logística</span>
+         </div>
+         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-xs font-bold border border-white/20">
+            {user.name.charAt(0)}
+         </div>
+      </div>
+
+      <div className="flex w-full">
+         <Sidebar 
+            activePage={activePage} 
+            onNavigate={setActivePage} 
+            user={user} 
+            onLogout={handleLogout} 
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
+         />
+         
+         {/* Main Content Area */}
+         {/* Added 'pt-16' for mobile header space, 'lg:pt-0' for desktop */}
+         {/* Changed 'ml-64' to 'lg:ml-64' to remove margin on mobile */}
+         <main className="flex-1 w-full lg:ml-64 pt-16 lg:pt-0 overflow-y-auto h-screen custom-scrollbar relative">
+            {renderContent()}
+         </main>
+      </div>
     </div>
   );
 };
