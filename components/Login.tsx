@@ -29,19 +29,18 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-slate-50 font-['Inter']">
       
-      {/* Left Column (Branding) - AGORA ESCURO (#020617) */}
-      <div className="hidden lg:flex w-1/2 bg-[#020617] text-white flex-col justify-between p-12 relative overflow-hidden border-r border-slate-800">
+      {/* Lado Esquerdo (Branding) - Dark com Efeitos Especiais */}
+      <div className="hidden lg:flex w-1/2 bg-[#020617] bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-blue-900/30 via-[#020617] to-[#020617] text-white flex-col justify-between p-12 relative overflow-hidden border-r border-slate-800">
         
-        {/* Abstract Background Effect - (Visível apenas no lado escuro) */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 mix-blend-screen rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
+        {/* Spotlight Effect (Luz forte) */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] mix-blend-screen -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
         {/* Logo Area */}
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <Truck className="text-white" size={24} />
+        <div className="relative z-10 flex items-center gap-4">
+          <div className="h-14 w-14 bg-blue-600/90 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <Truck className="h-8 w-8 text-white" />
           </div>
           <span className="font-bold text-2xl tracking-tight text-white">DRB Logística</span>
         </div>
@@ -54,32 +53,37 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
           </h1>
           <p className="text-slate-400 text-xl leading-relaxed max-w-lg">
             Controle total de viagens, monitoramento de frota e gestão logística da DRB Logística.
-            Otimize sua operação com dados em tempo real.
           </p>
         </div>
 
         {/* Footer */}
         <div className="relative z-10 text-sm text-slate-500">
-          © 2025 Global Tech Software. Todos os direitos reservados.
+          © 2025 Global Tech Software.
         </div>
       </div>
 
-      {/* Right Column (Form) - AGORA CLARO (bg-white) */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white relative overflow-hidden text-slate-900">
+      {/* Lado Direito (Formulário) - Light */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12 relative overflow-hidden">
         
         <div className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-4 duration-700 relative z-10">
           
-          {/* Mobile Logo (Visible only on lg:hidden) - Cor ajustada para fundo claro */}
-          <div className="lg:hidden flex items-center gap-3 mb-10 justify-center">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <Truck className="text-white" size={20} />
-            </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">DRB Logística</span>
+          {/* Header Mobile Exclusivo */}
+          <div className="lg:hidden flex flex-col items-center mb-10 space-y-4">
+             {/* Logo Mobile */}
+             <div className="h-14 w-14 bg-blue-600/90 backdrop-blur-md rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <Truck className="h-8 w-8 text-white" />
+             </div>
+             {/* Pílula de Texto */}
+             <div className="px-4 py-1.5 bg-blue-50 rounded-full border border-blue-100">
+                <span className="text-xs font-bold text-blue-700 uppercase tracking-wide">
+                   Sistema Operacional
+                </span>
+             </div>
           </div>
 
-          <div className="mb-10 text-center lg:text-left">
+          <div className="mb-8 text-center lg:text-left">
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Bem-vindo</h2>
-            <p className="text-slate-500">Insira suas credenciais para acessar o painel operacional.</p>
+            <p className="text-slate-500">Insira suas credenciais para acessar.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -94,7 +98,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm hover:bg-slate-100 focus:bg-white"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-slate-900 placeholder:text-slate-400 shadow-sm"
                   placeholder="nome@drblogistica.com"
                   required
                 />
@@ -111,7 +115,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl leading-5 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm hover:bg-slate-100 focus:bg-white"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white text-slate-900 placeholder:text-slate-400 shadow-sm"
                   placeholder="••••••••"
                   required
                 />
@@ -147,7 +151,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-600/20 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 transition-all hover:shadow-blue-600/30 active:scale-[0.98]"
             >
               {isLoading ? (
                 <>
