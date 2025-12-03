@@ -32,7 +32,6 @@ export const analyzeOperations = async (data: LogisticsData): Promise<string> =>
         Dados: ${dataSummary}
       `,
       config: {
-        maxOutputTokens: 350,
         temperature: 0.4, // Temperatura mais baixa para ser mais analítico e menos criativo
       }
     });
