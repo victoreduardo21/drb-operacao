@@ -63,7 +63,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         </div>
 
         <div className="relative z-10 text-xs text-slate-600 font-medium">
-          © {new Date().getFullYear()} Global Tech Software. Todos os direitos reservados.
+          © {new Date().getFullYear()} GTS - Global Tech Software. Todos os direitos reservados.
         </div>
       </div>
 
