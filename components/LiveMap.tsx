@@ -204,34 +204,34 @@ export const LiveMap: React.FC<Props> = ({ data }) => {
   };
 
   return (
-    <div className="h-full flex flex-col p-4 relative">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
+    <div className="h-full flex flex-col p-2 relative">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-2 gap-3">
         <div>
-          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-            <Layers className="text-blue-600" /> Mapa Operacional Integrado
+          <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+            <Layers size={18} className="text-blue-600" /> Mapa Operacional Integrado
           </h2>
-          <p className="text-sm text-gray-500 hidden md:block">Visualização de terminais e frota em tempo real.</p>
+          <p className="text-xs text-gray-500 hidden md:block">Visualização de terminais e frota em tempo real.</p>
         </div>
         
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           {/* Search Bar */}
           <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search size={16} className="text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+            <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+              <Search size={14} className="text-gray-400 group-focus-within:text-blue-500 transition-colors" />
             </div>
             <input 
               type="text" 
               placeholder="Buscar placa ou terminal..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-8 py-2 bg-white text-gray-900 border border-gray-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm w-48 md:w-64 transition-all"
+              className="pl-8 pr-7 py-1.5 bg-white text-gray-900 border border-gray-200 rounded-lg text-xs outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm w-40 md:w-56 transition-all"
             />
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-0 pr-2 flex items-center text-gray-400 hover:text-gray-600"
               >
-                <X size={14} />
+                <X size={12} />
               </button>
             )}
           </div>
@@ -239,58 +239,58 @@ export const LiveMap: React.FC<Props> = ({ data }) => {
           <div className="relative">
              <button 
               onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-colors
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-medium transition-colors
                 ${isFilterOpen ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'}`}
              >
-               <Filter size={16} />
+               <Filter size={14} />
                Filtros
              </button>
 
              {isFilterOpen && (
-               <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 z-[1000] p-2 animate-in fade-in slide-in-from-top-2">
-                 <div className="text-xs font-semibold text-gray-400 px-2 py-1 uppercase tracking-wider">Camadas</div>
+               <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 z-[1000] p-2 animate-in fade-in slide-in-from-top-2">
+                 <div className="text-[10px] font-semibold text-gray-400 px-2 py-1 uppercase tracking-wider">Camadas</div>
                  
-                 <button onClick={() => toggleFilter('showTerminals')} className="w-full flex items-center justify-between px-2 py-2 hover:bg-gray-50 rounded text-sm text-gray-700">
+                 <button onClick={() => toggleFilter('showTerminals')} className="w-full flex items-center justify-between px-2 py-1.5 hover:bg-gray-50 rounded text-xs text-gray-700">
                    <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                     <div className="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
                      Terminais
                    </div>
-                   {filters.showTerminals && <Check size={14} className="text-blue-600" />}
+                   {filters.showTerminals && <Check size={12} className="text-blue-600" />}
                  </button>
 
-                 <button onClick={() => toggleFilter('showGeofences')} className="w-full flex items-center justify-between px-2 py-2 hover:bg-gray-50 rounded text-sm text-gray-700">
+                 <button onClick={() => toggleFilter('showGeofences')} className="w-full flex items-center justify-between px-2 py-1.5 hover:bg-gray-50 rounded text-xs text-gray-700">
                    <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 rounded-full border border-blue-400 bg-blue-100"></div>
-                     Geofences (Raio)
+                     <div className="w-2.5 h-2.5 rounded-full border border-blue-400 bg-blue-100"></div>
+                     Geofences
                    </div>
-                   {filters.showGeofences && <Check size={14} className="text-blue-600" />}
+                   {filters.showGeofences && <Check size={12} className="text-blue-600" />}
                  </button>
 
                  <div className="my-1 border-t border-gray-100"></div>
-                 <div className="text-xs font-semibold text-gray-400 px-2 py-1 uppercase tracking-wider">Frota</div>
+                 <div className="text-[10px] font-semibold text-gray-400 px-2 py-1 uppercase tracking-wider">Frota</div>
 
-                 <button onClick={() => toggleFilter('showBusyDrivers')} className="w-full flex items-center justify-between px-2 py-2 hover:bg-gray-50 rounded text-sm text-gray-700">
+                 <button onClick={() => toggleFilter('showBusyDrivers')} className="w-full flex items-center justify-between px-2 py-1.5 hover:bg-gray-50 rounded text-xs text-gray-700">
                    <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 rounded bg-orange-500"></div>
+                     <div className="w-2.5 h-2.5 rounded bg-orange-500"></div>
                      Em Viagem
                    </div>
-                   {filters.showBusyDrivers && <Check size={14} className="text-blue-600" />}
+                   {filters.showBusyDrivers && <Check size={12} className="text-blue-600" />}
                  </button>
 
-                 <button onClick={() => toggleFilter('showFreeDrivers')} className="w-full flex items-center justify-between px-2 py-2 hover:bg-gray-50 rounded text-sm text-gray-700">
+                 <button onClick={() => toggleFilter('showFreeDrivers')} className="w-full flex items-center justify-between px-2 py-1.5 hover:bg-gray-50 rounded text-xs text-gray-700">
                    <div className="flex items-center gap-2">
-                     <div className="w-3 h-3 rounded bg-green-500"></div>
+                     <div className="w-2.5 h-2.5 rounded bg-green-500"></div>
                      Disponíveis
                    </div>
-                   {filters.showFreeDrivers && <Check size={14} className="text-blue-600" />}
+                   {filters.showFreeDrivers && <Check size={12} className="text-blue-600" />}
                  </button>
                </div>
              )}
           </div>
 
-          <div className="flex items-center gap-2 text-sm px-3 py-1 bg-green-100 text-green-700 rounded-full animate-pulse hidden lg:flex">
-            <Radio size={14} />
-            <span className="font-semibold">GPS On</span>
+          <div className="flex items-center gap-1.5 text-xs px-2.5 py-1 bg-green-100 text-green-700 rounded-full animate-pulse hidden lg:flex">
+            <Radio size={12} />
+            <span className="font-semibold text-[10px]">GPS On</span>
           </div>
         </div>
       </div>
@@ -301,10 +301,10 @@ export const LiveMap: React.FC<Props> = ({ data }) => {
         <div ref={containerRef} className="w-full h-full z-0" />
 
         {/* Live Driver List Overlay */}
-        <div className="absolute bottom-4 left-4 z-[400] w-72 hidden md:block">
-          <div className="bg-slate-900/90 backdrop-blur-md text-white p-4 rounded-xl shadow-2xl border border-slate-700">
-             <div className="flex justify-between items-center mb-3">
-               <h4 className="text-xs font-bold text-slate-400 uppercase">Frota Conectada (App)</h4>
+        <div className="absolute bottom-4 left-4 z-[400] w-64 hidden md:block">
+          <div className="bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-xl shadow-2xl border border-slate-700">
+             <div className="flex justify-between items-center mb-2">
+               <h4 className="text-[10px] font-bold text-slate-400 uppercase">Frota Conectada (App)</h4>
                <span className="text-[10px] bg-blue-600 px-1.5 py-0.5 rounded text-white">
                  {/* Count visible drivers based on filters AND search */}
                  {data.drivers.filter(d => {
@@ -317,7 +317,7 @@ export const LiveMap: React.FC<Props> = ({ data }) => {
                </span>
              </div>
              
-             <div className="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
+             <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1 custom-scrollbar">
                {data.drivers
                   .filter(d => {
                     const cleanQuery = searchQuery.toUpperCase().replace(/[\s-]/g, '');
@@ -327,23 +327,23 @@ export const LiveMap: React.FC<Props> = ({ data }) => {
                     return matchesSearch && matchesType;
                   })
                   .map(driver => (
-                 <div key={driver.id} className="flex items-center justify-between p-2 rounded bg-white/5 hover:bg-white/10 transition-colors cursor-pointer" 
+                 <div key={driver.id} className="flex items-center justify-between p-1.5 rounded bg-white/5 hover:bg-white/10 transition-colors cursor-pointer" 
                       onClick={() => {
                         if (mapRef.current) {
                           mapRef.current.flyTo([driver.currentLat, driver.currentLng], 15);
                         }
                       }}>
                     <div className="flex items-center gap-2">
-                       <div className={`w-2 h-2 rounded-full ${driver.status === 'Livre' ? 'bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.6)]' : 'bg-orange-400'}`}></div>
+                       <div className={`w-1.5 h-1.5 rounded-full ${driver.status === 'Livre' ? 'bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.6)]' : 'bg-orange-400'}`}></div>
                        <div className="flex flex-col">
-                         <span className="text-xs font-medium text-slate-200">{driver.name}</span>
-                         <span className="text-[10px] font-bold text-yellow-400 border border-yellow-400/30 rounded px-1 inline-block w-fit mt-0.5">
+                         <span className="text-[10px] font-medium text-slate-200">{driver.name}</span>
+                         <span className="text-[9px] font-bold text-yellow-400 border border-yellow-400/30 rounded px-1 inline-block w-fit mt-0.5">
                             {formatPlate(driver.plate)}
                          </span>
                        </div>
                     </div>
                     <div className="text-right">
-                       <Navigation size={14} className="text-slate-400" />
+                       <Navigation size={12} className="text-slate-400" />
                     </div>
                  </div>
                ))}
@@ -354,7 +354,7 @@ export const LiveMap: React.FC<Props> = ({ data }) => {
                    const cleanPlate = formatPlate(d.plate);
                    return cleanQuery === '' || cleanPlate.includes(cleanQuery) || d.name.toUpperCase().includes(cleanQuery);
                  }).length === 0 && (
-                   <p className="text-xs text-slate-500 text-center py-2">Nenhum motorista encontrado</p>
+                   <p className="text-[10px] text-slate-500 text-center py-1">Nenhum motorista encontrado</p>
                )}
              </div>
           </div>
