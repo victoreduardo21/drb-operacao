@@ -97,211 +97,204 @@ const App: React.FC = () => {
         const pctCompleted = totalTrips ? (completedTripsCount / totalTrips) * 100 : 0;
 
         return (
-          <div className="p-4 md:p-6 space-y-4 md:space-y-5">
+          <div className="p-8 md:p-10 space-y-8 max-w-[1400px] mx-auto w-full">
             {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
-                <h2 className="text-xl font-bold text-gray-800">Visão Geral da Operação</h2>
-                <p className="text-sm text-gray-500">Olá, {user?.name}. Acompanhamento estratégico.</p>
+                <h2 className="text-3xl font-bold text-gray-800 tracking-tight">Visão Geral</h2>
+                <p className="text-base text-gray-500 mt-1">Olá, {user?.name}. Acompanhamento estratégico.</p>
               </div>
               
               {!isSheetConnected ? (
-                 <div className="flex items-center gap-2 text-xs font-medium text-orange-600 bg-orange-50 px-3 py-1.5 rounded-full border border-orange-200 w-fit">
-                    <AlertTriangle size={14} />
-                    Demo Mode (Sem Planilha)
+                 <div className="flex items-center gap-3 text-sm font-medium text-orange-600 bg-orange-50 px-4 py-2 rounded-full border border-orange-200 w-fit">
+                    <AlertTriangle size={16} />
+                    Demo Mode
                  </div>
               ) : (
-                <div className="flex items-center gap-2 text-xs font-medium text-green-600 bg-green-50 px-3 py-1.5 rounded-full border border-green-200 shadow-sm animate-pulse w-fit">
-                   <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                <div className="flex items-center gap-3 text-sm font-medium text-green-600 bg-green-50 px-4 py-2 rounded-full border border-green-200 shadow-sm animate-pulse w-fit">
+                   <span className="w-2.5 h-2.5 rounded-full bg-green-500"></span>
                    Conectado Google Sheets
                 </div>
               )}
             </div>
 
-            {/* AI Analyst Panel - Featured at Top */}
-            <div className="bg-gradient-to-r from-slate-900 to-indigo-900 rounded-xl shadow-lg text-white p-5 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <Sparkles size={100} />
+            {/* AI Analyst Panel - Large */}
+            <div className="bg-gradient-to-r from-slate-900 to-indigo-900 rounded-2xl shadow-xl text-white p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                    <Sparkles size={140} />
                 </div>
                 
-                <div className="relative z-10 flex flex-col md:flex-row gap-5">
-                    <div className="md:w-1/3 border-b md:border-b-0 md:border-r border-indigo-700/50 pb-4 md:pb-0 pr-0 md:pr-6">
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="p-1.5 bg-indigo-500/20 rounded-lg">
-                                <Sparkles className="text-yellow-400" size={20} />
+                <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start">
+                    <div className="md:w-auto shrink-0 border-b md:border-b-0 md:border-r border-indigo-700/50 pb-6 md:pb-0 pr-0 md:pr-8">
+                        <div className="flex items-center gap-3 mb-3">
+                            <div className="p-2 bg-indigo-500/20 rounded-xl">
+                                <Sparkles className="text-yellow-400" size={24} />
                             </div>
                             <div>
-                                <h3 className="font-bold text-base">Analista Virtual</h3>
-                                <p className="text-indigo-200 text-[10px]">Inteligência Artificial DRB</p>
+                                <h3 className="font-bold text-lg">Analista Virtual IA</h3>
                             </div>
                         </div>
-                        <p className="text-xs text-indigo-100 mb-3 leading-relaxed opacity-80">
-                            Analise gargalos operacionais e eficiência de rota em tempo real.
+                        <p className="text-sm text-indigo-100 mb-4 leading-relaxed opacity-90 max-w-[220px]">
+                            Solicite uma análise tática dos gargalos operacionais em tempo real.
                         </p>
                         <button 
                             onClick={handleAiAnalysis}
                             disabled={isLoadingAi}
-                            className="w-full bg-white text-indigo-900 font-bold py-2 px-4 rounded-lg shadow hover:bg-indigo-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-xs"
+                            className="w-full bg-white text-indigo-900 font-bold py-3 px-6 rounded-xl shadow-lg hover:bg-indigo-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm"
                         >
-                            {isLoadingAi ? 'Analisando...' : 'Gerar Análise Tática'}
+                            {isLoadingAi ? 'Analisando dados...' : 'Gerar Análise Tática'}
                         </button>
                     </div>
 
-                    <div className="md:w-2/3 flex flex-col justify-center">
+                    <div className="flex-1 flex flex-col justify-center w-full">
                         {aiInsight ? (
-                            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/10 animate-in fade-in slide-in-from-right-4">
-                                <h4 className="text-[10px] font-bold text-yellow-400 uppercase tracking-wider mb-1">Relatório Gerado:</h4>
-                                <p className="text-xs leading-relaxed whitespace-pre-line text-gray-100 font-medium">
+                            <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/10 animate-in fade-in slide-in-from-right-4 shadow-inner">
+                                <p className="text-base leading-relaxed whitespace-pre-line text-gray-50 font-medium">
                                     {aiInsight}
                                 </p>
                             </div>
                         ) : (
-                            <div className="h-full flex items-center justify-center text-indigo-300/50 text-xs italic border border-dashed border-indigo-700/50 rounded-lg py-4 md:py-0">
-                                Aguardando solicitação de análise...
+                            <div className="h-full min-h-[120px] flex items-center justify-center text-indigo-300/60 text-sm italic border-2 border-dashed border-indigo-700/30 rounded-xl py-6">
+                                Aguardando solicitação de análise para processar dados...
                             </div>
                         )}
                     </div>
                 </div>
             </div>
 
-            {/* Visual Status Bar */}
-            <div className="bg-white p-4 md:p-5 rounded-xl shadow-sm border border-gray-200 hidden md:block">
-                <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-bold text-sm text-gray-800 flex items-center gap-2">
-                        <BarChart3 size={18} className="text-blue-600" /> Distribuição de Viagens
+            {/* KPI Metrics Grid - Large Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Viagens Ativas</p>
+                        <h3 className="text-4xl font-bold text-gray-800 mt-2">{activeTripsCount}</h3>
+                    </div>
+                    <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
+                        <Truck size={28} />
+                    </div>
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-lg">
+                    <TrendingUp size={16} /> Operação Fluindo
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Pendentes</p>
+                        <h3 className="text-4xl font-bold text-gray-800 mt-2">{pendingTripsCount}</h3>
+                    </div>
+                    <div className="p-3 bg-orange-50 text-orange-600 rounded-xl">
+                        <ClipboardList size={28} />
+                    </div>
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-sm text-gray-500 font-medium bg-gray-50 w-fit px-2 py-1 rounded-lg">
+                    Aguardando Aprovação
+                </div>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Frota Livre</p>
+                        <h3 className="text-4xl font-bold text-gray-800 mt-2">{freeDriversCount}</h3>
+                    </div>
+                    <div className="p-3 bg-green-50 text-green-600 rounded-xl">
+                        <Users size={28} />
+                    </div>
+                </div>
+                <div className="w-full bg-gray-100 rounded-full h-2 mt-4">
+                    <div className="bg-green-500 h-2 rounded-full transition-all duration-1000" style={{ width: `${(freeDriversCount / totalDrivers) * 100}%` }}></div>
+                </div>
+                <p className="text-xs text-gray-400 mt-2 text-right font-medium">{freeDriversCount} de {totalDrivers} motoristas</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                <div className="flex justify-between items-start">
+                    <div>
+                        <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Entregas Hoje</p>
+                        <h3 className="text-4xl font-bold text-gray-800 mt-2">{completedTripsCount}</h3>
+                    </div>
+                    <div className="p-3 bg-purple-50 text-purple-600 rounded-xl">
+                        <CheckCircle size={28} />
+                    </div>
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-sm text-purple-600 font-medium bg-purple-50 w-fit px-2 py-1 rounded-lg">
+                    100% no prazo
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Visual Status Bar */}
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 lg:col-span-2">
+                    <div className="flex items-center justify-between mb-6">
+                        <h3 className="font-bold text-lg text-gray-800 flex items-center gap-3">
+                            <BarChart3 size={24} className="text-blue-600" /> Distribuição de Status de Viagens
+                        </h3>
+                    </div>
+                    
+                    <div className="w-full h-6 bg-gray-100 rounded-full overflow-hidden flex mb-6 shadow-inner">
+                        <div className="bg-orange-400 h-full relative group" style={{ width: `${pctPending}%` }}>
+                            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <div className="bg-blue-500 h-full relative group" style={{ width: `${pctActive}%` }}>
+                             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <div className="bg-green-500 h-full relative group" style={{ width: `${pctCompleted}%` }}>
+                             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-8 text-sm font-medium text-gray-600">
+                        <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 rounded-full bg-orange-400 ring-4 ring-orange-50"></div>
+                            Pendentes <span className="text-gray-400 font-normal">({pendingTripsCount})</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 rounded-full bg-blue-500 ring-4 ring-blue-50"></div>
+                            Em Trânsito <span className="text-gray-400 font-normal">({activeTripsCount})</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 rounded-full bg-green-500 ring-4 ring-green-50"></div>
+                            Finalizadas <span className="text-gray-400 font-normal">({completedTripsCount})</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Recent Activity List */}
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 max-h-[400px] overflow-y-auto custom-scrollbar">
+                    <h3 className="font-bold text-lg text-gray-800 mb-6 flex items-center gap-3">
+                    <Activity size={24} className="text-blue-600" /> Últimas Atualizações
                     </h3>
-                    <span className="text-xs text-gray-500 font-medium">Total: {totalTrips}</span>
-                </div>
-                
-                {/* Visual Bar */}
-                <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden flex mb-2">
-                    <div className="bg-orange-400 h-full" style={{ width: `${pctPending}%` }} title="Pendentes"></div>
-                    <div className="bg-blue-500 h-full" style={{ width: `${pctActive}%` }} title="Em Trânsito"></div>
-                    <div className="bg-green-500 h-full" style={{ width: `${pctCompleted}%` }} title="Finalizadas"></div>
-                </div>
-                
-                {/* Legend */}
-                <div className="flex items-center gap-6 text-[10px] font-medium text-gray-600">
-                    <div className="flex items-center gap-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-orange-400"></div>
-                        Pendentes ({pendingTripsCount})
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                        Em Trânsito ({activeTripsCount})
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                        Finalizadas ({completedTripsCount})
-                    </div>
-                </div>
-            </div>
-
-            {/* KPI Metrics Grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Viagens Ativas</p>
-                        <h3 className="text-xl font-bold text-gray-800 mt-0.5">{activeTripsCount}</h3>
-                    </div>
-                    <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
-                        <Truck size={16} />
-                    </div>
-                </div>
-                <div className="mt-2 text-[10px] text-green-600 flex items-center gap-1 font-medium bg-green-50 w-fit px-1.5 py-0.5 rounded">
-                   <TrendingUp size={10} /> Normal
-                </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Pendentes</p>
-                        <h3 className="text-xl font-bold text-gray-800 mt-0.5">{pendingTripsCount}</h3>
-                    </div>
-                    <div className="p-1.5 bg-orange-50 text-orange-600 rounded-lg">
-                        <ClipboardList size={16} />
-                    </div>
-                </div>
-                 <div className={`mt-2 text-[10px] flex items-center gap-1 font-medium w-fit px-1.5 py-0.5 rounded ${pendingTripsCount > 0 ? 'text-orange-600 bg-orange-50' : 'text-gray-400 bg-gray-100'}`}>
-                   {pendingTripsCount > 0 ? 'Aguardando' : 'Em dia'}
-                </div>
-              </div>
-
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Frota Livre</p>
-                        <h3 className="text-xl font-bold text-gray-800 mt-0.5">{freeDriversCount}</h3>
-                    </div>
-                    <div className="p-1.5 bg-green-50 text-green-600 rounded-lg">
-                        <Users size={16} />
-                    </div>
-                </div>
-                <div className="w-full bg-gray-100 rounded-full h-1 mt-3">
-                    <div className="bg-green-500 h-1 rounded-full transition-all duration-500" style={{ width: `${(freeDriversCount / totalDrivers) * 100}%` }}></div>
-                </div>
-                <p className="text-[10px] text-gray-400 mt-1 text-right">{freeDriversCount}/{totalDrivers}</p>
-              </div>
-
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Entregas</p>
-                        <h3 className="text-xl font-bold text-gray-800 mt-0.5">{completedTripsCount}</h3>
-                    </div>
-                    <div className="p-1.5 bg-purple-50 text-purple-600 rounded-lg">
-                        <CheckCircle size={16} />
-                    </div>
-                </div>
-                <div className="mt-2 text-[10px] text-purple-600 flex items-center gap-1 font-medium bg-purple-50 w-fit px-1.5 py-0.5 rounded">
-                   100% no prazo
-                </div>
-              </div>
-            </div>
-
-            {/* Recent Activity List */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                <h3 className="font-bold text-sm text-gray-800 mb-4 flex items-center gap-2">
-                  <Activity size={18} className="text-blue-600" /> Últimas Atualizações
-                </h3>
-                <div className="space-y-0">
-                  {getRecentActivity().map((event, idx) => (
-                    <div key={idx} className="flex gap-4 relative group">
-                      {/* Timeline Line */}
-                      {idx !== 4 && <div className="absolute left-[9px] top-6 bottom-0 w-[1px] bg-gray-100 group-hover:bg-gray-200 transition-colors"></div>}
-                      
-                      <div className="mt-1 relative z-10">
-                        <div className="w-5 h-5 rounded-full bg-blue-50 border-2 border-blue-100 text-blue-600 flex items-center justify-center shadow-sm">
-                           <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                    <div className="space-y-1">
+                    {getRecentActivity().map((event, idx) => (
+                        <div key={idx} className="flex gap-5 relative group">
+                        {idx !== 4 && <div className="absolute left-[11px] top-8 bottom-0 w-[2px] bg-gray-100 group-hover:bg-blue-100 transition-colors"></div>}
+                        
+                        <div className="mt-2 relative z-10">
+                            <div className="w-6 h-6 rounded-full bg-blue-50 border-2 border-blue-100 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                            <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+                            </div>
                         </div>
-                      </div>
-                      
-                      <div className="flex-1 pb-4 border-b border-gray-50 last:border-0 last:pb-0">
-                        <div className="flex justify-between items-start">
-                          <p className="text-xs font-semibold text-gray-800">{event.event}</p>
-                          <span className="text-[10px] text-gray-400 flex items-center gap-1 bg-gray-50 px-2 py-0.5 rounded-full">
-                            <Clock size={10} />
-                            {new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                          </span>
+                        
+                        <div className="flex-1 pb-6 border-b border-gray-50 last:border-0 last:pb-0">
+                            <div className="flex justify-between items-start">
+                            <p className="text-sm font-bold text-gray-800">{event.event}</p>
+                            <span className="text-xs font-semibold text-gray-400 bg-gray-50 px-2 py-1 rounded-md">{new Date(event.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                            </div>
+                            <div className="flex items-center gap-2 mt-1">
+                                <p className="text-sm text-gray-600 font-medium">{event.driverName}</p>
+                                <span className="text-xs text-gray-400">•</span>
+                                <p className="text-xs text-gray-500 flex items-center gap-1">
+                                    <MapPinSmall /> {event.location}
+                                </p>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-1 flex-wrap">
-                             <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">
-                                 {event.driverName}
-                             </span>
-                             <span className="text-[10px] text-gray-400">•</span>
-                             <span className="text-[10px] text-gray-500">Viagem {event.tripId}</span>
                         </div>
-                        <p className="text-[10px] text-gray-400 mt-1 flex items-center gap-1">
-                           <MapPinSmall /> {event.location}
-                        </p>
-                      </div>
+                    ))}
                     </div>
-                  ))}
-                  {getRecentActivity().length === 0 && (
-                      <p className="text-gray-400 text-xs text-center py-4">Nenhuma atividade registrada ainda.</p>
-                  )}
                 </div>
             </div>
           </div>
@@ -311,11 +304,11 @@ const App: React.FC = () => {
       case 'trips':
         return <ActiveTrips data={data} />;
       case 'map':
-        return <div className="h-[calc(100vh-64px)] lg:h-screen p-0 lg:p-2"><div className="h-full bg-white lg:rounded-xl lg:shadow lg:border lg:border-gray-200"><LiveMap data={data} /></div></div>;
+        return <div className="h-[calc(100vh-64px)] lg:h-screen p-0 lg:p-6"><div className="h-full bg-white lg:rounded-2xl lg:shadow-md lg:border lg:border-gray-200 overflow-hidden max-w-[1400px] mx-auto w-full"><LiveMap data={data} /></div></div>;
       case 'terminals':
         return <TerminalRegistry data={data} onUpdate={setData} />;
       default:
-        return <div className="p-8">Página em construção</div>;
+        return <div className="p-10">Página em construção</div>;
     }
   };
 
@@ -325,17 +318,19 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-sm">
+    <div className="flex min-h-screen bg-slate-50 text-sm font-['Inter']">
       
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-[#020617] text-white z-40 flex items-center justify-between px-4 shadow-md">
-         <div className="flex items-center gap-3">
-             <button onClick={() => setIsSidebarOpen(true)} className="p-1 hover:bg-white/10 rounded-lg">
-               <Menu size={20} />
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#020617] text-white z-40 flex items-center justify-between px-6 shadow-md">
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-blue-900/40 via-[#020617] to-[#020617] pointer-events-none"></div>
+         
+         <div className="relative z-10 flex items-center gap-4">
+             <button onClick={() => setIsSidebarOpen(true)} className="p-2 hover:bg-white/10 rounded-lg">
+               <Menu size={24} />
              </button>
-             <span className="font-bold text-base tracking-tight">DRB Logística</span>
+             <span className="font-bold text-lg tracking-tight">DRB Logística</span>
          </div>
-         <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-[10px] font-bold border border-white/20">
+         <div className="relative z-10 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-xs font-bold border border-white/20">
             {user.name.charAt(0)}
          </div>
       </div>
@@ -350,9 +345,8 @@ const App: React.FC = () => {
             onClose={() => setIsSidebarOpen(false)}
          />
          
-         {/* Main Content Area */}
-         {/* Updated 'lg:ml-60' to match Sidebar new width */}
-         <main className="flex-1 w-full lg:ml-60 pt-14 lg:pt-0 overflow-y-auto h-screen custom-scrollbar relative">
+         {/* Main Content Area - Aumentado para ml-72 */}
+         <main className="flex-1 w-full lg:ml-72 pt-16 lg:pt-0 overflow-y-auto h-screen custom-scrollbar relative">
             {renderContent()}
          </main>
       </div>
@@ -360,9 +354,8 @@ const App: React.FC = () => {
   );
 };
 
-// Mini helper component for the map pin icon in recent activity
 const MapPinSmall = () => (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
     </svg>
 );
